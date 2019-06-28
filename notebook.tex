@@ -1,0 +1,1792 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{LuaApresentation}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <h2><center><font color="red"><b>Seminário: Linguagem de Programação LUA</b></font></center></h2>
+ <center><img src = "logoime.jpeg" height="150" width="150"/></center>      
+ <center>Autores: Alexandre L. Martins e Luciano K</center> <br>
+ <center>Instituto de Matemática e Estatística - IME</center>
+ <center>Universidade de São Paulo - USP</center> <br>
+ <center>Discíplina: Tópicos Avançados de Programação Orientada a Objetos</center>
+ <center>Prof. Dr. Fabio Kon</center>     
+ <center><time>11-06-2019</time></center>
+ <center>São Paulo</center>
+\end{verbatim}
+
+    \begin{verbatim}
+ <font color="red"><b>Índice</b></font>
+\end{verbatim}
+
+\begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <ol>
+   <li>Introdução</li>
+   <li>Principais Características</li>
+   <li>Tabelas</li>
+   <li>Orientação ao Objeto com LUA</li>
+   <li>Bibliotecas Lua</li>
+   <li>Lua Embarcada</li>
+   <li>LÖVE</li>
+   <li>Conclusão</li>
+ </ol>
+\end{verbatim}
+
+    \begin{verbatim}
+ <font color="red"><b>2. Principais Características: Desempenho</b></font>
+\end{verbatim}
+
+    \begin{verbatim}
+ <center>
+ <img src="plot.png" alt="Desempenho">
+ </center>     
+\end{verbatim}
+
+    \begin{verbatim}
+ <font color="red"><b>3. Tabelas: Declaração de Tabelas</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{t} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{output: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n+nb}{type}\PY{p}{(}\PY{n}{t}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{output: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n+nb}{type}\PY{p}{(}\PY{n+nb}{\PYZus{}G}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+output: table
+output: table
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Declaração de Dicionário</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{doomPatrol} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{x}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Chefe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mulher Elástica}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Homem Negativo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{w}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Homem Robô}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{doomPatrol}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..} \PY{n}{doomPatrol}\PY{p}{.}\PY{n}{z} \PY{o}{..} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n}{doomPatrol}\PY{p}{.}\PY{n}{w}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Chefe - Homem Negativo - Homem Robô
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Nil valor básico</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{c+c1}{\PYZhy{}\PYZhy{}X não foi declarado}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nil
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Interação por pares</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kr}{for} \PY{n}{k}\PY{p}{,} \PY{n}{v} \PY{k+kr}{in} \PY{n+nb}{pairs}\PY{p}{(}\PY{n}{doomPatrol}\PY{p}{)} \PY{k+kr}{do}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{k}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{n}{v}\PY{p}{)}
+        
+        \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+z Homem Negativo
+y Mulher Elástica
+x Chefe
+w Homem Robô
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Declaração de Arranjo</b></center>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{Trindade} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{Trindade} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Superman}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Batman}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mulher Maravilha}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}
+        
+        \PY{n}{Defensores} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{n}{Defensores}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hulk}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{Defensores}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dr. Estranho}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{Defensores}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Namor}\PY{l+s+s1}{\PYZsq{}}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Trindade}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{Defensores}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+table: 0x561933ef8780
+table: 0x561933f02b10
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Arranjo Acesso</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{marvel} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hulk}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Capitão América}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Homem de Ferro}\PY{l+s+s2}{\PYZdq{}} \PY{p}{\PYZcb{}}
+        
+        \PY{k+kr}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{3} \PY{k+kr}{do}
+            
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{marvel}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+            
+        \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hulk
+Capitão América
+Homem de Ferro
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Arranjo Esparso</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{xMan} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{xMan}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vampira}\PY{l+s+s1}{\PYZsq{}}
+         \PY{n}{xMan}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Wolverine}\PY{l+s+s1}{\PYZsq{}}
+         \PY{c+c1}{\PYZhy{}\PYZhy{}xMan[4] = \PYZsq{}Dr. X\PYZsq{}}
+         \PY{n}{xMan}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ciclope}\PY{l+s+s1}{\PYZsq{}}
+         
+         \PY{k+kr}{for} \PY{n}{i}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{6} \PY{k+kr}{do}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{xMan}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k+kr}{end}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{o}{\PYZsh{}}\PY{n}{xMan}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{o}{\PYZsh{}}\PY{n}{Trindade}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Vampira
+Wolverine
+nil
+nil
+nil
+Ciclope
+2 3
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Interação por ipares</b></font>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{renegados} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Batman}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Geoforça}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Katana}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Metamorfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Raio Negro}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}
+         
+         \PY{k+kr}{for} \PY{n}{i}\PY{p}{,} \PY{n}{v} \PY{k+kr}{in} \PY{n+nb}{ipairs}\PY{p}{(}\PY{n}{renegados}\PY{p}{)} \PY{k+kr}{do}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{n}{v}\PY{p}{)}
+         
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 Batman
+2 Geoforça
+3 Katana
+4 Metamorfo
+5 Raio Negro
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Arranjo Multidimencional</b></font> 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{greatBands} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{greatBands}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pete Townshend}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Roger Daltrey}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John Entwistle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keith Moon}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}
+         \PY{n}{greatBands}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{John Lennon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Paul McCartney}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{George Harrison}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ringo Starr}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}
+         \PY{n}{greatBands}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Keith Richards}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mick Jagger}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bill Wyman}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Charlie Watts}\PY{l+s+s1}{\PYZsq{}} \PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{greatBands}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{greatBands}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{greatBands}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+John Entwistle
+nil
+stdin:1: attempt to index field '?' (a nil value)
+stack traceback:
+	stdin:1: in main chunk
+	[C]: in ?
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Closures}
+         \PY{c+c1}{\PYZhy{}\PYZhy{}Não está claro, voltar.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Interator Functions}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Tabelas</b></font> 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{metaTabela} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{metaTabela}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}add} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{l}\PY{p}{,} \PY{n}{r}\PY{p}{)}
+             
+             \PY{k+kr}{return} \PY{n}{l}\PY{p}{.}\PY{n}{value} \PY{o}{+} \PY{n}{r}
+             
+         \PY{k+kr}{end}
+         
+         \PY{n}{container} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{value} \PY{o}{=} \PY{l+m+mi}{5} \PY{p}{\PYZcb{}}
+         
+         \PY{n}{result} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{n}{result} \PY{o}{=} \PY{n}{metaTabela}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}add}\PY{p}{(}\PY{n}{container}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{result}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: setmetatable e getmetatable</b></font>   
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{Shazan}        \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{ArqueiroVerde} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{Ricardito}     \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{Ricardito}\PY{p}{,}\PY{n}{ArqueiroVerde}\PY{p}{)}
+         
+         \PY{n+nb}{print} \PY{p}{(}\PY{n+nb}{getmetatable}\PY{p}{(}\PY{n}{Shazan} \PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n+nb}{getmetatable}\PY{p}{(}\PY{n}{Ricardito}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print} \PY{p}{(}\PY{n+nb}{getmetatable}\PY{p}{(}\PY{n}{ArqueiroVerde}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+nil
+table: 0x561933f0ea30
+nil
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Método __index</b></font>  
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{Hendrix} \PY{o}{=} \PY{p}{\PYZob{}}
+             
+             \PY{n}{play} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{guitar}\PY{l+s+s2}{\PYZdq{}}
+             
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Townshend} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Hendrix}\PY{p}{.}\PY{n}{play}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Townshend}\PY{p}{.}\PY{n}{play}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+guitar
+nil
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Método __index</b></font>  
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{Hendrix} \PY{o}{=} \PY{p}{\PYZob{}}    
+             \PY{n}{play} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{guitar}\PY{l+s+s2}{\PYZdq{}}    
+         \PY{p}{\PYZcb{}}
+         \PY{n}{Townshend} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{Richards} \PY{o}{=} \PY{p}{\PYZob{}}    
+             \PY{n}{music} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Angel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{n}{country}  \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             \PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{table}\PY{p}{,} \PY{n}{key}\PY{p}{)}
+                 \PY{k+kr}{return} \PY{n}{Richards}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+             \PY{k+kr}{end}    
+         \PY{p}{\PYZcb{}}
+         \PY{n}{Harrison} \PY{o}{=} \PY{p}{\PYZob{}}    
+             \PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{table}\PY{p}{,} \PY{n}{key}\PY{p}{)}
+                 \PY{k+kr}{if} \PY{n}{key} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hello}\PY{l+s+s2}{\PYZdq{}} \PY{k+kr}{then}
+                     \PY{k+kr}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello, Goodbye}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{k+kr}{end}
+                 \PY{k+kr}{return} \PY{k+kc}{nil}
+             \PY{k+kr}{end}    
+         \PY{p}{\PYZcb{}}
+         \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{Hendrix}\PY{p}{,}\PY{n}{Richards}\PY{p}{)}
+         \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{Townshend}\PY{p}{,}\PY{n}{Harrison}\PY{p}{)}
+         \PY{c+c1}{\PYZhy{}\PYZhy{}setmetatable(Hendrix,Harrison)}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Método __index</b></font>  
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Hendrix}\PY{p}{.}\PY{n}{play}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Hendrix}\PY{p}{.}\PY{n}{music}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Hendrix}\PY{p}{.}\PY{n}{country}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Townshend}\PY{p}{.}\PY{n}{hello}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Harrison}\PY{p}{.}\PY{n}{hello}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Townshend}\PY{p}{.}\PY{n}{country}\PY{p}{)}
+         \PY{c+c1}{\PYZhy{}\PYZhy{}print(Hendrix.hello)}
+         \PY{c+c1}{\PYZhy{}\PYZhy{}print(Hendrix.music)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+guitar
+Angel
+USA
+Hello, Goodbye
+nil
+nil
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Método __newindex</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{Moon}      \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{Townshend} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{theWho}    \PY{o}{=} \PY{p}{\PYZob{}}
+             
+             \PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{table}\PY{p}{,} \PY{n}{key}\PY{p}{)}
+                 \PY{k+kr}{return} \PY{n}{theWho}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+             \PY{k+kr}{end}\PY{p}{,}
+             
+             \PY{n}{\PYZus{}\PYZus{}newindex} \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}\PY{n}{table}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+                 \PY{n}{theWho}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+             \PY{k+kr}{end}
+             
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{Moon}\PY{p}{,}\PY{n}{theWho}\PY{p}{)}
+         \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{Townshend}\PY{p}{,}\PY{n}{theWho}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Método __newindex</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{Moon}\PY{p}{.}\PY{n}{play}       \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Drums}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{Townshend}\PY{p}{.}\PY{n}{song}  \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Who are you?}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{theWho}\PY{p}{.}\PY{n}{show}     \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{USA}\PY{l+s+s2}{\PYZdq{}}
+         \PY{c+c1}{\PYZhy{}\PYZhy{}Townshend.show = \PYZdq{}Brazil\PYZdq{}}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Moon}\PY{p}{.}\PY{n}{play}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Townshend}\PY{p}{.}\PY{n}{play}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{theWho}\PY{p}{.}\PY{n}{play}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Moon}\PY{p}{.}\PY{n}{song}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Townshend}\PY{p}{.}\PY{n}{song}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{theWho}\PY{p}{.}\PY{n}{song}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Moon}\PY{p}{.}\PY{n}{show}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Townshend}\PY{p}{.}\PY{n}{show}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{theWho}\PY{p}{.}\PY{n}{show}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Drums
+Drums
+Drums
+Who are you?
+Who are you?
+Who are you?
+USA
+USA
+USA
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Métodos rawget e rawset</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{Thor} \PY{o}{=} \PY{p}{\PYZob{}}
+             
+             \PY{n}{tool} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{martelo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+             
+             \PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{table}\PY{p}{,} \PY{n}{key}\PY{p}{)}
+                 \PY{k+kr}{return} \PY{n}{z}\PY{p}{[}\PY{n}{key}\PY{p}{]}
+             \PY{k+kr}{end}\PY{p}{,}
+             
+             \PY{n}{\PYZus{}\PYZus{}newindex} \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}\PY{n}{table}\PY{p}{,} \PY{n}{key}\PY{p}{,} \PY{n}{value}\PY{p}{)}
+                 \PY{n}{z}\PY{p}{[}\PY{n}{key}\PY{p}{]} \PY{o}{=} \PY{n}{value}
+             \PY{k+kr}{end}
+             
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{Thor}\PY{p}{,} \PY{n}{Thor}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>3. Tabelas: Meta Métodos rawget e rawset</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{rawget}\PY{p}{(}\PY{n}{Thor}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tool}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{rawset}\PY{p}{(}\PY{n}{Thor}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tool}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Espada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{rawset}\PY{p}{(}\PY{n}{Thor}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{magia}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Voar}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Thor}\PY{p}{.}\PY{n}{tool}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Thor}\PY{p}{.}\PY{n}{magia}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+martelo
+Espada
+Voar
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Classes</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{Enemy} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{health}  \PY{o}{=} \PY{l+m+mi}{200}
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{attack}  \PY{o}{=} \PY{l+m+mi}{4}
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{defense} \PY{o}{=} \PY{l+m+mi}{20}
+         
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{new} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{self}\PY{p}{,} \PY{n}{object}\PY{p}{)}
+             
+             \PY{n}{object} \PY{o}{=} \PY{n}{object} \PY{o+ow}{or} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{object}\PY{p}{,} \PY{n}{self}\PY{p}{)}    
+             \PY{n}{self}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{n}{self}
+             \PY{k+kr}{return} \PY{n}{object}
+         
+         \PY{k+kr}{end}
+         
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{hit} \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}\PY{n}{self}\PY{p}{,} \PY{n}{damage}\PY{p}{)}
+             
+             \PY{n}{damage} \PY{o}{=} \PY{n}{damage} \PY{o}{\PYZhy{}} \PY{n}{self}\PY{p}{.}\PY{n}{defense}    
+             \PY{k+kr}{if} \PY{n}{damage} \PY{o}{\PYZlt{}} \PY{l+m+mi}{0} \PY{k+kr}{then}
+                 \PY{n}{damage} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k+kr}{end}    
+             \PY{n}{self}\PY{p}{.}\PY{n}{health} \PY{o}{=} \PY{n}{self}\PY{p}{.}\PY{n}{health} \PY{o}{\PYZhy{}} \PY{n}{damage}
+             
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Classes</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{grunt}    \PY{o}{=} \PY{n}{Enemy}\PY{p}{.}\PY{n}{new}\PY{p}{(}\PY{n}{Enemy}\PY{p}{)}
+         \PY{n}{miniBoss} \PY{o}{=} \PY{n}{Enemy}\PY{p}{.}\PY{n}{new}\PY{p}{(}\PY{n}{Enemy}\PY{p}{)}
+         \PY{n}{boss}     \PY{o}{=} \PY{n}{Enemy}\PY{p}{.}\PY{n}{new}\PY{p}{(}\PY{n}{Enemy}\PY{p}{,} \PY{p}{\PYZob{}} \PY{n}{health} \PY{o}{=} \PY{l+m+mi}{500}\PY{p}{,} \PY{n}{defense} \PY{o}{=} \PY{l+m+mi}{100} \PY{p}{\PYZcb{}}\PY{p}{)}
+         
+         \PY{n}{miniBoss}\PY{p}{.}\PY{n}{health} \PY{o}{=} \PY{l+m+mi}{205}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{boss}\PY{p}{.}\PY{n}{health}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{miniBoss}\PY{p}{.}\PY{n}{health}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grunt}\PY{p}{.}\PY{n}{health}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Enemy}\PY{p}{.}\PY{n}{attack}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+500
+205
+200
+4
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Classes</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{First attack}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{hit}\PY{p}{(}\PY{n}{boss}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{)}
+         \PY{n}{Enemy}\PY{p}{.}\PY{n}{hit}\PY{p}{(}\PY{n}{grunt}\PY{p}{,}\PY{l+m+mi}{55}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{boss}\PY{p}{.}\PY{n}{health}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{grunt}\PY{p}{.}\PY{n}{health}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+First attack
+500
+165
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Operator ':'</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{Vector} \PY{o}{=} \PY{p}{\PYZob{}} \PY{n}{x}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mi}{0} \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Vector}\PY{p}{.}\PY{n}{new} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{self}\PY{p}{,} \PY{n}{object}\PY{p}{)}
+             
+             \PY{n}{object} \PY{o}{=} \PY{n}{object} \PY{o+ow}{or} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{object}\PY{p}{,} \PY{n}{self}\PY{p}{)}
+             \PY{n}{self}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{n}{self}
+             \PY{k+kr}{return} \PY{n}{object}
+             
+         \PY{k+kr}{end}
+         
+         \PY{n}{Vector}\PY{p}{.}\PY{n}{print} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{self}\PY{p}{)}
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{n}{self}\PY{p}{.}\PY{n}{x} \PY{o}{..} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, y: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n}{self}\PY{p}{.}\PY{n}{y} \PY{o}{..} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ z: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n}{self}\PY{p}{.}\PY{n}{z}\PY{p}{)}
+             
+         \PY{k+kr}{end}
+         
+         \PY{n}{velocity} \PY{o}{=} \PY{n}{Vector}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         \PY{n}{velocity}\PY{p}{.}\PY{n}{print}\PY{p}{(}\PY{n}{velocity}\PY{p}{)}
+         \PY{n}{momento} \PY{o}{=} \PY{n}{Vector}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{x}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{\PYZcb{}}\PY{p}{)}
+         \PY{n}{momento}\PY{p}{.}\PY{n}{print}\PY{p}{(}\PY{n}{momento}\PY{p}{)}
+         \PY{n}{momento}\PY{p}{:}\PY{n+nb}{print}\PY{p}{(}\PY{n}{momento}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+x: 0, y: 1 z: 0
+x: 10, y: 1 z: 20
+x: 10, y: 1 z: 20
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Instanciando vários objetos</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n}{Character} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{n}{alive} \PY{o}{=} \PY{k+kc}{true}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Character}\PY{p}{.}\PY{n}{position} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{n}{x}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mi}{30}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Character}\PY{p}{.}\PY{n}{new} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{self}\PY{p}{,} \PY{n}{object}\PY{p}{)}
+             
+             \PY{n}{object} \PY{o}{=} \PY{n}{object} \PY{o+ow}{or} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{object}\PY{p}{,} \PY{n}{self}\PY{p}{)}
+             \PY{n}{self}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{n}{self}
+             \PY{k+kr}{return} \PY{n}{object}
+             
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Instanciando vários objetos</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{player1} \PY{o}{=} \PY{n}{Character}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         \PY{n}{player2} \PY{o}{=} \PY{n}{Character}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{player1}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{x} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{player2}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{y} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{k+kr}{if} \PY{n}{player1}\PY{p}{.}\PY{n}{position} \PY{o}{==} \PY{n}{player2}\PY{p}{.}\PY{n}{position} \PY{k+kr}{then}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{same position}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k+kr}{else} 
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{different}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+same position
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{Character} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{n}{alive} \PY{o}{=} \PY{k+kc}{true}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Character}\PY{p}{.}\PY{n}{position} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{n}{x}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{z}\PY{o}{=}\PY{l+m+mi}{30}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Character}\PY{p}{.}\PY{n}{new} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{self}\PY{p}{,} \PY{n}{object}\PY{p}{)}
+             
+             \PY{n}{object} \PY{o}{=} \PY{n}{object} \PY{o+ow}{or} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{object}\PY{p}{.}\PY{n}{position} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n}{object}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{x} \PY{o}{=} \PY{n}{Character}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{x}
+             \PY{n}{object}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{y} \PY{o}{=} \PY{n}{Character}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{y}
+             \PY{n}{object}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{z} \PY{o}{=} \PY{n}{Character}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{z}
+             \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{object}\PY{p}{,} \PY{n}{self}\PY{p}{)}
+             \PY{n}{self}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{n}{self}
+             \PY{k+kr}{return} \PY{n}{object}
+             
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{player1} \PY{o}{=} \PY{n}{Character}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         \PY{n}{player2} \PY{o}{=} \PY{n}{Character}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         \PY{n}{player3} \PY{o}{=} \PY{n}{Character}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{player1}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{x} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{player2}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{y} \PY{o}{=} \PY{l+m+mi}{10}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{player3}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{x}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{n}{player3}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{y}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{n}{player3}\PY{p}{.}\PY{n}{position}\PY{p}{.}\PY{n}{z}\PY{p}{)}
+         
+         \PY{k+kr}{if} \PY{n}{player1}\PY{p}{.}\PY{n}{position} \PY{o}{==} \PY{n}{player2}\PY{p}{.}\PY{n}{position} \PY{k+kr}{then}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{same position}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+         \PY{k+kr}{else} 
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{different}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}    
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10 20 30
+different
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>4. Orientação ao Objeto com LUA: Herança</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{n}{Animal} \PY{o}{=} \PY{p}{\PYZob{}}
+             \PY{n}{sound} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+         \PY{p}{\PYZcb{}}
+         
+         \PY{n}{Animal}\PY{p}{.}\PY{n}{new} \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}\PY{n}{self}\PY{p}{,} \PY{n}{object}\PY{p}{)}
+             
+             \PY{n}{object} \PY{o}{=} \PY{n}{object} \PY{o+ow}{or} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+             \PY{n+nb}{setmetatable}\PY{p}{(}\PY{n}{object}\PY{p}{,} \PY{n}{self}\PY{p}{)}
+             \PY{n}{self}\PY{p}{.}\PY{n}{\PYZus{}\PYZus{}index} \PY{o}{=} \PY{n}{self}
+             \PY{k+kr}{return} \PY{n}{object}
+         
+         \PY{k+kr}{end}
+         
+         \PY{n}{Animal}\PY{p}{.}\PY{n}{MakeSound} \PY{o}{=} \PY{k+kr}{function}\PY{p}{(}\PY{n}{self}\PY{p}{)}
+             
+            \PY{n+nb}{print}\PY{p}{(}\PY{n}{self}\PY{p}{.}\PY{n}{sound}\PY{p}{)}
+             
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{n}{Dog} \PY{o}{=} \PY{n}{Animal}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}\PY{c+c1}{\PYZhy{}\PYZhy{}is a class}
+         \PY{n}{Dog}\PY{p}{.}\PY{n}{sound} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{woof}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{Cat} \PY{o}{=} \PY{n}{Animal}\PY{p}{:}\PY{n}{new}\PY{p}{(}\PY{p}{)}
+         \PY{n}{Cat}\PY{p}{.}\PY{n}{sound} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{meaw}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{Cat}\PY{p}{.}\PY{n}{angly} \PY{o}{=} \PY{k+kc}{false}
+         
+         \PY{n}{Cat}\PY{p}{.}\PY{n}{MakeSound} \PY{o}{=} \PY{k+kr}{function} \PY{p}{(}\PY{n}{self}\PY{p}{)}
+             
+             \PY{k+kr}{if} \PY{n}{self}\PY{p}{.}\PY{n}{angly} \PY{k+kr}{then}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{hsssss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{k+kr}{else}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{self}\PY{p}{.}\PY{n}{sound}\PY{p}{)}
+             \PY{k+kr}{end}
+         
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{Cat}\PY{p}{.}\PY{n}{MakeSound}\PY{p}{(}\PY{n}{Cat}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Dog}\PY{p}{.}\PY{n}{MakeSound}\PY{p}{(}\PY{n}{Dog}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Animal}\PY{p}{.}\PY{n}{MakeSound}\PY{p}{(}\PY{n}{Animal}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Animal}\PY{p}{.}\PY{n}{MakeSound}\PY{p}{(}\PY{n}{Cat}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Animal}\PY{p}{.}\PY{n}{MakeSound}\PY{p}{(}\PY{n}{Dog}\PY{p}{)}\PY{p}{)}
+         
+         \PY{n}{Cat}\PY{p}{.}\PY{n}{angly} \PY{o}{=} \PY{k+kc}{true}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{Cat}\PY{p}{.}\PY{n}{MakeSound}\PY{p}{(}\PY{n}{Cat}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+meaw
+
+woof
+
+
+
+meaw
+
+woof
+
+hsssss
+
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>5. Bibliotecas Lua</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>5. Bibliotecas Lua: Tabela global</b></font>     
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <ul>
+   <li>Mantra</li>
+   <ul>
+       <li>Tudo em Lua é uma Tabela.</li>  
+   </ul>
+   <li>Tabela Global</li>
+   <ul>
+       <li>Tabela Global armazena variáveis globais.</li> 
+       <li>_G</li>
+       <li>Tratada como qualquer tabela.</li>
+   </ul>
+   <li>Tabela Global:</li>
+   <ul>
+       <li>Variáveis Dinâmicas</li> 
+   </ul>
+ </ul>
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}O que há em \PYZus{}G.}
+        \PY{n}{Superman} \PY{o}{=} \PY{p}{\PYZob{}}
+            
+            \PY{n}{stone} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Kriptonita}\PY{l+s+s2}{\PYZdq{}}
+            
+        \PY{p}{\PYZcb{}}
+        
+        \PY{k+kd}{local} \PY{n}{Potter} \PY{o}{=} \PY{p}{\PYZob{}}
+            
+            \PY{n}{tool} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{varinha}\PY{l+s+s2}{\PYZdq{}}
+            
+        \PY{p}{\PYZcb{}}
+        
+        \PY{k+kr}{for} \PY{n}{n} \PY{k+kr}{in} \PY{n+nb}{pairs}\PY{p}{(}\PY{n+nb}{\PYZus{}G}\PY{p}{)} \PY{k+kr}{do} \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+batmovel
+collectgarbage
+tonumber
+\_G
+rawequal
+select
+require
+loadfile
+dofile
+unpack
+load
+pcall
+module
+xpcall
+Superman
+table
+pairs
+math
+rawset
+tostring
+bit32
+coroutine
+loadstring
+ipairs
+rawget
+debug
+rawlen
+os
+io
+error
+setmetatable
+assert
+package
+type
+\_VERSION
+next
+getmetatable
+string
+print
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Lendo elemento por elemento de \PYZus{}G}
+         \PY{n}{guitar1} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Telecaster}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{guitar2} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Les Paul}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{guitar3} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Stratocaster}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{guitar4} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{SG}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{guitar5} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Flying V}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{guitar6} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Explorer}\PY{l+s+s2}{\PYZdq{}}
+         
+         \PY{k+kr}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{6} \PY{k+kr}{do} 
+             
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{\PYZus{}G}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{guitar}\PY{l+s+s2}{\PYZdq{}}\PY{o}{..}\PY{n}{i}\PY{p}{]}\PY{p}{)} 
+             
+         \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Telecaster
+Les Paul
+Stratocaster
+SG
+Flying V
+Explorer
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n+nb}{\PYZus{}G}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{guitar1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{\PYZus{}G}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{guitar2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{\PYZus{}G}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{guitar1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Les Paul
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>5. Bibliotecas Lua: Matemática</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Trigonometrica em radiano}
+         \PY{n}{\PYZus{}45rad}   \PY{o}{=} \PY{n+nb}{math.rad}\PY{p}{(}\PY{l+m+mi}{45}\PY{p}{)}
+         \PY{n}{\PYZus{}180rad}  \PY{o}{=} \PY{n+nb}{math.rad}\PY{p}{(}\PY{l+m+mi}{180}\PY{p}{)}
+         \PY{n}{\PYZus{}360rad} \PY{o}{=} \PY{n+nb}{math.rad}\PY{p}{(}\PY{l+m+mi}{360}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.tan}\PY{p}{(}\PY{n+nb}{math.rad}\PY{p}{(}\PY{n}{\PYZus{}45rad}\PY{p}{)}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna a tangente}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.sin}\PY{p}{(}\PY{n+nb}{math.rad}\PY{p}{(}\PY{n}{\PYZus{}180rad}\PY{p}{)}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o seno}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.cos}\PY{p}{(}\PY{n+nb}{math.rad}\PY{p}{(}\PY{n}{\PYZus{}360rad}\PY{p}{)}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o coseno}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.013708642534394 - Retorna a tangente
+0.05480366514879 - Retorna o seno
+0.99399311657252 - Retorna o coseno
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Numericos}
+         \PY{n}{num} \PY{o}{=} \PY{l+m+mf}{3.1416}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.floor}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o valor inteiro}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{num} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.abs}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.max}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o maior valor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.min}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o menor valor}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3 - Retorna o valor inteiro
+1
+5 - Retorna o maior valor
+4 - Retorna o menor valor
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Numericos Aleatorios}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.random}\PY{p}{(}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Aleatorio entre 0 e 1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.random}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Aleatorio entre 0 e 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.random}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Aleatorio entre 5 e 10}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{os.time}\PY{p}{(}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Numeros de segundos desde...}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.84018771715471 - Aleatorio entre 0 e 1
+4 - Aleatorio entre 0 e 10
+9 - Aleatorio entre 5 e 10
+1559500404 - Numeros de segundos desde{\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Constantes}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.pi} \PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o pi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{math.huge} \PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o infinito}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n+nb}{math.huge}\PY{p}{)}\PY{o}{..}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{} Retorna o tipo do infinito}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.1415926535898 - Retorna o pi
+inf - Retorna o infinito
+number - Retorna o tipo do infinito
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>5. Bibliotecas Lua: Matemática, manipulando o Tempo</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Estimando periodos de tempo.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Largada: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..} \PY{n+nb}{os.clock}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k+kr}{for} \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1000000} \PY{k+kr}{do}
+             
+             \PY{c+c1}{\PYZhy{}\PYZhy{}\PYZdq{}The Time Machine\PYZdq{}}
+             
+         \PY{k+kr}{end}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Chegada: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{..} \PY{n+nb}{os.clock}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Largada: 0.090645
+Chegada: 0.10572
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Formatando o tempo.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hoje é }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n+nb}{os.date}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}D}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{o}{..} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ e }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{são }\PY{l+s+s2}{\PYZdq{}} \PY{o}{..} \PY{n+nb}{os.date}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}H:\PYZpc{}M:\PYZpc{}S}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Hoje é 06/02/19 e são 15:34:11
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>5. Bibliotecas Lua: Interação com a Shell</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Checando se o shell está disponível}
+        \PY{k+kr}{if}\PY{p}{(}\PY{n+nb}{os.execute} \PY{o}{\PYZti{}=} \PY{l+m+mi}{0}\PY{p}{)} \PY{k+kr}{then}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shell está disponível}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{c+c1}{\PYZhy{}\PYZhy{}Dando um comando}
+                \PY{n+nb}{os.execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ls \PYZhy{}an *.ipynb}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}       
+        \PY{k+kr}{else}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shell não está disponível}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shell está disponível
+
+-rw-r--r-- 1 1000 1000  2002 mai 26 12:20 LuaApresationPython.ipynb
+-rw-r--r-- 1 1000 1000 49513 jun  2 17:35 LuaApresentation.ipynb
+-rw-r--r-- 1 1000 1000 22341 mai 19 17:17 LuaExemples.ipynb
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>5. Bibliotecas Lua: Testes com Lua</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k+kr}{function} \PY{n+nf}{add}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{p}{)}
+             
+            \PY{n}{soma} \PY{o}{=} \PY{n}{a} \PY{o}{+} \PY{n}{b}
+            \PY{n+nb}{assert}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{a}\PY{p}{)} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{a não é um número}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n+nb}{assert}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n}{b}\PY{p}{)} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{number}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{b não é um número}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n+nb}{error}\PY{p}{(}\PY{n}{add} \PY{o+ow}{or} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{erro}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}
+            \PY{k+kr}{return} \PY{n}{soma}
+         \PY{k+kr}{end}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{add}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(no error message)
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>6. Lua Embarcada</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <ol>
+   <li>Interpretador Lua escrito em C</li>
+       <ol>
+          <li>Alto desempenho.</li> 
+          <li>Alta compatibilidade com C e C++.</li> 
+          <li>Justifica o uso de Lua na construção de games.</li>
+          <li>Alta portablidade, via API, para outras linguagens.</li>
+       </ol> 
+ </ol>         
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>6. Lua Embarcada: API C</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <ol>
+   <li>Arquivos Básicos</li>
+       <ol>
+          <li>lua.h</li> 
+          <li>luaxlib.h</li> 
+          <li>lualib.h</li>
+       </ol> 
+     <li>Lua não aloca variáveis globais.</li>
+     <li>Armazena estados em uma pilha.</li>
+     <li>Lua e C comportinham a mesma pilha.</li>
+ </ol>         
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+   <center><img src = "code1.png" height="300" width="300"/></center>      
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>6. Lua Embarcada: Pilha</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <center><img src = "pilhalua2.png" height="700" width="600"/></center> 
+ <font size="-5">fonte: Szauer, Gabor</font>
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>6. Lua Embarcada: Manipulando a Pilha</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <ul>
+   <li>Inserindo na Pilha</li>
+       <ul>
+          <li>lua_pushnil(lua_State*)</li> 
+          <li>lua_pushboolean(lua_State*, bool)</li> 
+          <li>lua_pushnumber(lua_State*, lua_number)</li>
+          <li>lua_pushinteger(lua_State*, lua_integer)</li>
+          <li>lua_pushstring(lua_State*, lua_string)</li>
+       </ul>         
+ </ul>      
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>6. Lua Embarcada: Manipulando a Pilha</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+  <ul>
+   <li>Lendo da Pilha</li>
+       <ul>
+          <li>int lua_toboolean(lua_State*, int)</li> 
+          <li>lua_number lua_tonumber(lua_State*, int) </li> 
+          <li>lua_integer lua_tointeger(lua_State*, int)</li>
+          <li>const char* lua_string(lua_State*, int, size_t*)</li>
+       </ul>         
+ </ul>  
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>6. Lua Embarcada: Manipulando a Pilha</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <ul>
+   <li>Estrutura da Pilha</li>
+       <ul>
+          <li>Tamanho</li> 
+          <ul>
+            <li>int lua_gettop(lauState*)</li> 
+            <li>lua_settop(lauState*, int)</li> 
+              <ul>
+                 <li>top_new < top então todos os elementos acima de top_new são descartados 
+                 <li>top_new > top então todos os elementos abixo de top_new recebem valor nil 
+              </ul> 
+          </ul>
+       </ul>         
+ </ul>         
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>7.LÖVE</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZhy{}\PYZhy{}Checando se o shell está disponível}
+        \PY{k+kr}{if}\PY{p}{(}\PY{n+nb}{os.execute} \PY{o}{\PYZti{}=} \PY{l+m+mi}{0}\PY{p}{)} \PY{k+kr}{then}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shell está disponível}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                \PY{c+c1}{\PYZhy{}\PYZhy{}Dando um comando}
+                \PY{n+nb}{os.execute}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{love loveGame}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}       
+        \PY{k+kr}{else}
+                \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Shell não está disponível}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>7. LÖVE: Método draw e Bibliotecas</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kr}{function} \PY{n+nc}{love}\PY{p}{.}\PY{n+nf}{draw}\PY{p}{(}\PY{p}{)}
+           
+            \PY{n}{sound} \PY{o}{=} \PY{n}{love}\PY{p}{.}\PY{n}{audio}\PY{p}{.}\PY{n}{newSource}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{laser.wav}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{static}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{data} \PY{o}{=} \PY{n}{love}\PY{p}{.}\PY{n}{filesystem}\PY{p}{.}\PY{n}{newFileData}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{xwing.png}\PY{l+s+s2}{\PYZdq{}} \PY{p}{)}
+            \PY{n}{data} \PY{o}{=} \PY{n}{love}\PY{p}{.}\PY{n}{image}\PY{p}{.}\PY{n}{newImageData}\PY{p}{(} \PY{n}{data} \PY{p}{)}
+            \PY{n}{starChip}\PY{p}{.}\PY{n}{image} \PY{o}{=} \PY{n}{love}\PY{p}{.}\PY{n}{graphics}\PY{p}{.}\PY{n}{newImage}\PY{p}{(} \PY{n}{data} \PY{p}{)}
+            \PY{n}{love}\PY{p}{.}\PY{n}{graphics}\PY{p}{.}\PY{n}{draw}\PY{p}{(}\PY{n}{starChip}\PY{p}{.}\PY{n}{image}\PY{p}{,} \PY{n}{starChip}\PY{p}{.}\PY{n}{posiX}\PY{p}{,} \PY{n}{starChip}\PY{p}{.}\PY{n}{posiY}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} 
+                \PY{n}{starChip}\PY{p}{.}\PY{n}{width}\PY{p}{,} \PY{n}{starChip}\PY{p}{.}\PY{n}{height}\PY{p}{)}
+            \PY{n}{love}\PY{p}{.}\PY{n}{graphics}\PY{p}{.}\PY{n}{setColor}\PY{p}{(}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>7. LÖVE: Som e disparos</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kr}{if} \PY{n}{love}\PY{p}{.}\PY{n}{keyboard}\PY{p}{.}\PY{n}{isDown}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k+kr}{then}
+        
+             \PY{n}{sound}\PY{p}{:}\PY{n}{play}\PY{p}{(}\PY{p}{)}
+             \PY{n}{love}\PY{p}{.}\PY{n}{graphics}\PY{p}{.}\PY{n}{setColor}\PY{p}{(}\PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{,} \PY{l+m+mi}{250}\PY{p}{)} 
+             \PY{n}{firePosiX} \PY{o}{=} \PY{n}{starChip}\PY{p}{.}\PY{n}{posiX} \PY{o}{+} \PY{l+m+mi}{35} 
+             \PY{n}{firePosiY} \PY{o}{=} \PY{n}{starChip}\PY{p}{.}\PY{n}{posiY} \PY{o}{\PYZhy{}} \PY{l+m+mi}{15} 
+             \PY{n}{fire} \PY{o}{=} \PY{k+kc}{true}
+        
+            \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>7. LÖVE: Navegação</b></font>    
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kr}{if} \PY{n}{love}\PY{p}{.}\PY{n}{keyboard}\PY{p}{.}\PY{n}{isDown}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{up}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k+kr}{then}
+               
+               \PY{k+kr}{if}  \PY{n}{starChip}\PY{p}{.}\PY{n}{posiY} \PY{o}{\PYZgt{}} \PY{l+m+mi}{32} \PY{k+kr}{then}
+                   
+                 \PY{n}{starChip}\PY{p}{.}\PY{n}{posiY} \PY{o}{=} \PY{n}{starChip}\PY{p}{.}\PY{n}{posiY} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+        
+               \PY{k+kr}{end}
+               
+          \PY{k+kr}{end}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Shell está disponível
+
+stdin:1: attempt to index global 'love' (a nil value)
+stack traceback:
+	stdin:1: in main chunk
+	[C]: in ?
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>8. Conclusão</b></font>    
+\end{verbatim}
+
+    \begin{verbatim}
+ <meta charset="UTF-8"/>
+ <title>Document</title>
+\end{verbatim}
+
+\begin{verbatim}
+ <font color="red"><b>Bibliográfia</b></font>  
+ <ul>
+     <li>"Lua Quick Start Guide", Gabor Szauer</li> 
+     <li>"Beginning Lua Programming", Kurt Jung and Aaron Brown</li> 
+     <li>LÖVE, https://love2d.org/wiki/Main_Page </li>
+</ul> 
+\end{verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
