@@ -1,0 +1,4 @@
+Para executar o notebook instale o kernel lua. (instale https://pypi.org/project/nb-lua-kernel/, https://github.com/tomstitt/lupyter)
+
+Para executar o jogo, vc precisa instalar o löve no seu SO.
+
